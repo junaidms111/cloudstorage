@@ -1,0 +1,64 @@
+User Table:
+user_id (Primary Key)
+username
+email
+password_hash
+registration_date
+last_login_date
+
+File Table:
+file_id (Primary Key)
+file_name
+file_size
+file_type
+upload_date
+user_id (Foreign Key referencing User Table)
+folder_id (Foreign Key referencing Folder Table)
+
+
+Folder Table:
+folder_id (Primary Key)
+folder_name
+parent_folder_id (Foreign Key referencing itself for hierarchical structure)
+user_id (Foreign Key referencing User Table)
+
+Sharing Table (for sharing permissions):
+share_id (Primary Key)
+file_id (Foreign Key referencing File Table)
+shared_with_user_id (Foreign Key referencing User Table)
+permission_level (e.g., read-only, read-write, etc.)
+
+Metadata Table (for additional file information):
+metadata_id (Primary Key)
+file_id (Foreign Key referencing File Table)
+key (e.g., tags, description, etc.)
+value
+
+Version Table (for file versioning):
+
+version_id (Primary Key)
+file_id (Foreign Key referencing File Table)
+version_number
+upload_date
+user_id (Foreign Key referencing User Table)
+file_content (or reference to file content storage)
+
+Trash Table (for deleted files/folders):
+trash_id (Primary Key)
+item_id (Foreign Key referencing either File Table or Folder Table)
+item_type (e.g., file or folder)
+delete_date
+user_id (Foreign Key referencing User Table)
+
+Activity Log Table (for tracking user actions):
+log_id (Primary Key)
+user_id (Foreign Key referencing User Table)
+action_type (e.g., upload, delete, share, etc.)
+action_date
+details (optional, for additional information about the action)
+
+
+This schema allows for users to have their files organized into folders, with sharing permissions managed separately. 
+Metadata can be used for additional details about files, such as tags or descriptions. 
+Adjustments or additions may be needed based on specific features and requirements of the Google Drive-like project, 
+such as versioning, trash management, and access control.
